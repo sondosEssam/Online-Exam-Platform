@@ -1,0 +1,22 @@
+.container{
+    background: linear-gradient(
+    135deg,                                /* bottom-left → top-right */
+    rgba(239, 246, 255, 0.75) 0%,          /* light base tone */
+    rgba(173, 216, 255, 0.55) 100%         /* subtle blue tint */
+    );
+    /* add blur effect */
+    backdrop-filter: blur(200px);
+    -webkit-backdrop-filter: blur(200px);
+}
+h1{
+    font-family: var(--font-sans);
+}
+li i {
+    border: 2px solid #3b82f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+}
+
