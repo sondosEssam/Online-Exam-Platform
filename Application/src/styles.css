@@ -20,3 +20,26 @@ ul{
 h1{
     font-family: var(--font-sans);
 }
+
+
+/* forms */
+@layer components{
+ .form-input {
+    @apply w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2;
+  }
+
+  .form-input-error {
+    @apply border-red-500 focus:ring-red-500;
+  }
+
+  .form-input-valid {
+    @apply border-gray-300 focus:ring-blue-500;
+  }
+     .form-label {
+    @apply block text-gray-700 font-semibold mb-2;
+  }
+
+  .form-error {
+    @apply text-red-500 text-sm mt-1;
+  }
+}
