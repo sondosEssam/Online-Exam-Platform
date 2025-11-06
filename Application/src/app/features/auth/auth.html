@@ -1,3 +1,14 @@
 
-<app-intro class="hidden md:block"></app-intro>
-<router-outlet></router-outlet>
+<main class="contain flex">
+<app-intro class="hidden md:block flex-1"></app-intro>
+@if(authChoiceService.authChoice() === "login"){
+
+    <app-login class="flex-1"></app-login>
+}
+@else if(authChoiceService.authChoice() === "register"){
+    <app-register class="flex-1"></app-register>
+}
+@else if(authChoiceService.authChoice() === "forgot-password"){
+    <app-forget-password class="flex-1"></app-forget-password>
+}
+</main>
