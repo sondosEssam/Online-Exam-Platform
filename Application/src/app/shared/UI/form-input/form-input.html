@@ -1,12 +1,12 @@
     <div>
-        <label for="{{label()}}" class="block text-gray-700 font-semibold mb-2">{{label()}}</label>
+        <label for="{{label()}}" class="block text-gray-800 mb-1">{{label()}}</label>
         <input  [type]="type()" [formControl]="control" [placeholder]="placeHolder()"   id="{{label()}}" 
         [ngClass]="{
             'form-input-valid':!(control.invalid && (control.touched || control.dirty)),
-            'form-input-error':control.invalid && (control.touched || control.dirty)
+            'form-input-error':control.invalid && (control.touched || control.dirty),
+            'form-input':true
         }"
         [placeholder]="placeHolder()" required
-        class="form-input"
         >
         @if(control.invalid && (control.touched || control.dirty)){
             <div class="form-error">

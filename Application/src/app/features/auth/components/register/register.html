@@ -1,1 +1,94 @@
-<p>register works!</p>
+<main class="h-[100vh] flex flex-col justify-center items-center md:px-6 px-2 py-2 overflow-y-auto ">
+<form  class="flex flex-col space-y-2  w-[90%]" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h1 class="text-2xl font-bold self-start">Create Acount</h1>
+
+
+<div class="flex flex-col md:flex-row">
+<app-form-input
+[control]="registerForm.controls.firstName"
+[label]="'First Name'"
+[placeHolder]="'first name'"
+[errorMessage]="'name is requiered'"
+[type]="'text'"
+class="flex-grow mr-2"
+>
+</app-form-input>
+<app-form-input
+[control]="registerForm.controls.lastName"
+[label]="'Last Name'"
+[placeHolder]="'last name'"
+[errorMessage]="'name is requiered'"
+[type]="'text'"
+class="flex-grow"
+>
+</app-form-input>
+</div>
+<app-form-input
+[control]="registerForm.controls.username"
+[label]="'user Name'"
+[placeHolder]="'user name'"
+[errorMessage]="'name is requiered'"
+[type]="'text'"
+>
+
+</app-form-input>
+
+<app-form-input
+[control]="registerForm.controls.email"
+[label]="'Email'"
+[placeHolder]="'email@example.com'"
+[errorMessage]="'email is reuiqred'"
+[type]="'email'"
+></app-form-input>
+
+
+
+<div class="w-full">
+  <ngx-material-intl-tel-input
+    [preferredCountries]="['eg', 'us']"
+    [enablePlaceholder]="true"
+    [enableSearch]="true"
+    formControlName="phone"
+    
+    [ngClass]="{
+            'form-input-valid':!(registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)),
+            'form-input-error':registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)
+        }"
+  ></ngx-material-intl-tel-input>
+@if(registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)){
+  <p 
+     class="text-red-600 text-sm mt-1">
+    Invalid phone number
+  </p>
+}
+
+</div>
+
+
+
+<app-form-input
+[control]="registerForm.controls.password"
+[label]="'Password'"
+[placeHolder]="'*****'"
+[errorMessage]="'password is requiered'"
+[type]="'password'"
+>
+</app-form-input>
+
+
+<app-form-input
+[control]="registerForm.controls.repassword"
+[label]="'Confirm Password'"
+[placeHolder]="'******'"
+[errorMessage]="'repassword is requiered'"
+[type]="'password'"
+class="mb-2"
+>
+</app-form-input>
+
+<button authButton type="submit" class="my-5">Register</button>
+<p class="text-gray-600 text-center">Already have an account? <a class="text-blue-600 hover:text-blue-800"(click)="setAuthChoiceLogin()">Login</a></p>
+
+
+</form>
+</main>

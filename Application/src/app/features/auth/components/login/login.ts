@@ -4,9 +4,10 @@ import { AuthChoice } from '../../services/auth-choice';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormInput } from "../../../../shared/UI/form-input/form-input";
+import { AuthButton } from '../../layout/auth-button/auth-button';
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule, FormInput],
+  imports: [ ReactiveFormsModule, FormInput, AuthButton],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
