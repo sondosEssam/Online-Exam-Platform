@@ -5,7 +5,7 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NgxMaterialIntlTelInputComponent } from 'ngx-material-intl-tel-input';
+import { NgxMaterialIntlTelInputComponent  } from 'ngx-material-intl-tel-input';
 import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-register',

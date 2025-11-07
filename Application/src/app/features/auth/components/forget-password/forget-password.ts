@@ -21,5 +21,6 @@ setAuthChoiceLogin(){
 }
 onSubmit(){
   console.log(this.formForgetPassword.value);
+  this.authChoiceService.setAuthChoice('verify-otp');
 }
 }

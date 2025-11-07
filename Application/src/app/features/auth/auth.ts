@@ -5,10 +5,12 @@ import { Login } from "./components/login/login";
 import { AuthChoice } from './services/auth-choice';
 import { Register } from "./components/register/register";
 import { ForgetPassword } from "./components/forget-password/forget-password";
+import { VerfiyOtp } from './components/verfiy-otp/verfiy-otp';
+import { NewPassword } from './components/new-password/new-password';
 
 @Component({
   selector: 'app-auth',
-  imports: [Intro, RouterOutlet, Login, Register, ForgetPassword],
+  imports: [Intro, RouterOutlet, Login, Register, ForgetPassword, VerfiyOtp, NewPassword],
   templateUrl: './auth.html',
   styleUrl: './auth.css',
 })

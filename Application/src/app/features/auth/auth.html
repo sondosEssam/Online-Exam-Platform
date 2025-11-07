@@ -11,4 +11,10 @@
 @else if(authChoiceService.authChoice() === "forgot-password"){
     <app-forget-password class="flex-1"></app-forget-password>
 }
+@else if(authChoiceService.authChoice() === "verify-otp"){
+    <app-verfiy-otp class="flex-1"></app-verfiy-otp>
+}
+@else if(authChoiceService.authChoice() === "new-password"){
+    <app-new-password class="flex-1"></app-new-password>
+}
 </main>

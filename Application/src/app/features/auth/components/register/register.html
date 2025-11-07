@@ -1,5 +1,5 @@
-<main class="h-[100vh] flex flex-col justify-center items-center md:px-6 px-2 py-2 overflow-y-auto ">
-<form  class="flex flex-col space-y-2  w-[90%]" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<main class="h-[110vh] w-[100%] md:h-[100vh] flex flex-col justify-center items-center md:px-6 px-1 py-4 overflow-y-auto ">
+<form  class="flex flex-col space-y-2  w-[85%] md:w-[60%]" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h1 class="text-2xl font-bold self-start">Create Acount</h1>
 
 
@@ -48,7 +48,7 @@ class="flex-grow"
     [preferredCountries]="['eg', 'us']"
     [enablePlaceholder]="true"
     [enableSearch]="true"
-    formControlName="phone"
+    [formControl]="registerForm.controls.phone"
     
     [ngClass]="{
             'form-input-valid':!(registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)),
