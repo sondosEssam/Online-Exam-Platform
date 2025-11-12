@@ -7,9 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaterialIntlTelInputComponent  } from 'ngx-material-intl-tel-input';
 import { NgClass } from '@angular/common';
+import { RouterLink } from "@angular/router";
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, NgxMaterialIntlTelInputComponent, NgClass],
+  imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, NgxMaterialIntlTelInputComponent, NgClass, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -23,13 +24,11 @@ registerForm = this.fb.group({
   email:['',Validators.required],
   password:['',Validators.required],
   repassword:['',Validators.required],
-  phone:['',Validators.required, Validators.pattern(/^\+?\d{10,15}$/)],
+  phone:['',Validators.required, [Validators.pattern(/^\+?\d{10,15}$/)]],
 
 })
 
-setAuthChoiceLogin(){
-  this.authChoiceService.setAuthChoice('login');
-}
+
 onSubmit(){
   console.log(this.registerForm.value);
   

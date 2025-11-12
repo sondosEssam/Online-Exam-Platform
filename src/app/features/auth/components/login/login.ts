@@ -7,7 +7,7 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 @Component({
   selector: 'app-login',
-  imports: [ ReactiveFormsModule, FormInput, AuthButton],
+  imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -21,12 +21,6 @@ export class Login {
   })
 
 authChoiceService = inject(AuthChoice);
-setCreateAcountChoice(){
-  this.authChoiceService.setAuthChoice('register');
-}
-setForgotPasswordChoice(){
-  this.authChoiceService.setAuthChoice('forgot-password');
-}
 
 onSubmit(){
   console.log(this.form.value)

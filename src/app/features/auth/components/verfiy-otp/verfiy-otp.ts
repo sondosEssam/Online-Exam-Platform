@@ -3,11 +3,12 @@ import { AuthChoice } from '../../services/auth-choice';
 import { AuthButton } from "../../layout/auth-button/auth-button";
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgOtpInputComponent } from 'ng-otp-input';
+import { RouterLink } from "@angular/router";
 
   
 @Component({
   selector: 'app-verfiy-otp',
-  imports: [AuthButton, ReactiveFormsModule, NgOtpInputComponent],
+  imports: [AuthButton, ReactiveFormsModule, NgOtpInputComponent, RouterLink],
   templateUrl: './verfiy-otp.html',
   styleUrl: './verfiy-otp.css',
 })
@@ -21,13 +22,5 @@ authChoiceService = inject(AuthChoice);
   onSubmit() {
     console.log(this.form.value);
     this.authChoiceService.setAuthChoice('new-password');
-  }
-
-  setAuthChoiceForgotPassword() {
-    this.authChoiceService.setAuthChoice('forgot-password');
-  }
-
-  setAuthChoiceRegister() {
-    this.authChoiceService.setAuthChoice('register');
   }
 }

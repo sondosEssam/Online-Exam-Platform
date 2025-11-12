@@ -1,3 +1,4 @@
+
 <main class=" min-h-screen-110vh w-[100%] md:min-h-screen flex flex-col justify-center items-center md:px-6 px-1 py-4 overflow-y-auto ">
 <form  class="flex flex-col space-y-2  w-[85%] md:w-[60%]" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h1 class="text-2xl font-bold self-start">Create Account</h1>
@@ -87,7 +88,7 @@ class="mb-2"
 </app-form-input>
 
 <button authButton type="submit" class="my-5">Register</button>
-<p class="text-gray-600 text-center">Already have an account? <a class="text-blue-600 hover:text-blue-800"(click)="setAuthChoiceLogin()">Login</a></p>
+<p class="text-gray-600 text-center">Already have an account? <a class="text-blue-600 hover:text-blue-800" routerLink="/auth/login">Login</a></p>
 
 
 </form>
