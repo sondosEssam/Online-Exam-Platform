@@ -19,11 +19,13 @@ export class NewPassword {
     password: [''],
     repassword: [''],
   });
-
+setForgetPassword() {
+    this.authChoiceService.setAuthChoice('forget-password');
+  }
 
   onSubmit() {
     console.log(this.registerForm.value);
-
+    this.setForgetPassword()
     this.router.navigate(['/auth/login']);
   }
 

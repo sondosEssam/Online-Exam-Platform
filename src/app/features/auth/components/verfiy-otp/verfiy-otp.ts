@@ -18,7 +18,9 @@ authChoiceService = inject(AuthChoice);
   form = this.fb.group({
     otp: ['']
   })
-
+  setForgetPassword() {
+    this.authChoiceService.setAuthChoice('forget-password');
+  }
   onSubmit() {
     console.log(this.form.value);
     this.authChoiceService.setAuthChoice('new-password');

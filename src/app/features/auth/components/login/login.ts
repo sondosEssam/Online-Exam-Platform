@@ -16,8 +16,7 @@ export class Login {
   fb = inject(FormBuilder);
   form = this.fb.group({
     email:['', Validators.required, Validators.email],
-    password:['', Validators.required, Validators.minLength(6)],
-    age:['']
+    password:['', Validators.required, Validators.minLength(6)]
   })
 
 authChoiceService = inject(AuthChoice);

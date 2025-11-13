@@ -4,9 +4,9 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthChoice {
-  authChoice: WritableSignal<'verify-otp'|'new-password'> = signal<'verify-otp'|'new-password'>('verify-otp');
+  authChoice: WritableSignal<'forget-password'|'verify-otp'|'new-password'> = signal<'forget-password'|'verify-otp'|'new-password'>('forget-password');
 
-  setAuthChoice(choice: 'verify-otp'|'new-password') {
+  setAuthChoice(choice: 'forget-password'|'verify-otp'|'new-password') {
     this.authChoice.set(choice);
   }
 }
