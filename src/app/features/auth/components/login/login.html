@@ -1,0 +1,27 @@
+
+<div class="h-[100vh] flex justify-center items-center">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form"   class="flex flex-col space-y-4  md:w-[70%] w-[90%] p-6  ">
+    <h1 class="text-2xl font-bold mb-6">Login</h1>
+
+    <app-form-input 
+    [placeHolder]="'user@example.com'"
+    [control]="form.controls.email"
+    [label]="'Email'"
+    [type]="'email'"
+    [errorMessage]="'cannot leave it empty'"
+    ></app-form-input>
+    <div class="flex flex-col space-y-2">
+    <app-form-input 
+    [placeHolder]="'*****'"
+    [control]="form.controls.password"
+    [label]="'Password'"
+    [type]="'password'"
+    [errorMessage]="'must be at least 6'"
+    ></app-form-input>
+    <a routerLink="/auth/forgot-password" class="text-blue-600 hover:text-blue-400 transition-all delay-200 ease-in-out self-end">Forgot your Password?</a>
+    </div>
+    <button authButton type="submit">Login</button>
+    <p class="mt-4 text-center text-gray-500">Don't have an account? <a routerLink="/auth/register" class="text-blue-600 hover:text-blue-400 transition-all delay-200 ease-in-out">Sign up</a></p>
+</form>
+
+</div>
