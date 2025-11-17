@@ -18,15 +18,18 @@ export class Login {
 
   fb = inject(FormBuilder);
   form = this.fb.group({
-    email:['', Validators.required, Validators.email],
-    password:['', Validators.required, Validators.minLength(6)]
+    email:['', [Validators.required, Validators.email]],
+    password:['', [Validators.required, Validators.minLength(6)]]
   })
 
 authChoiceService = inject(AuthChoice);
 
 onSubmit(){
+  console.log(this.form.value);
+  
+  if(this.form.valid){
   this._authService.login(this.form.value).subscribe(res=>{
     console.log(res)
   });
 }
-}
+}}
