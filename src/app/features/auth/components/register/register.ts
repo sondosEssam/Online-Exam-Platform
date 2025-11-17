@@ -5,20 +5,18 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NgxMaterialIntlTelInputComponent  } from 'ngx-material-intl-tel-input';
-import { NgClass } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { AuthLibraryService } from 'auth';
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, NgxMaterialIntlTelInputComponent, NgClass, RouterLink],
+  imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
 export class Register {
 authChoiceService = inject(AuthChoice);
 _authService = inject(AuthLibraryService);
-
+router = inject(Router);
 
 fb = inject(FormBuilder);
 registerForm = this.fb.group({
@@ -26,9 +24,9 @@ registerForm = this.fb.group({
   firstName:['',Validators.required],
   lastName:['',Validators.required],
   email:['',Validators.required],
-  password:['',(Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/))],
+  password:['',[Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
   rePassword:['',Validators.required],
-  phone:['',Validators.required, [Validators.pattern(/^\+?\d{10,15}$/)]],
+  phone:['',[Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
 
 })
 
@@ -40,10 +38,17 @@ const body ={
   }
 
   if(this.registerForm.valid){
-  this._authService.register(body).subscribe(res=>{
-    console.log(res)
-  });
-  
+  this._authService.register(body).subscribe({
+    next: (res) => {  
+    console.log(res);
+    this.router.navigate(['/dashborad/student']);
+    }
+
+    ,
+    error: (err) => {
+      console.log(err); 
+  }} 
+  );
 }
 }
 }

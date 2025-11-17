@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AuthEndPoint } from './enums/authEndPoint';
 import { AuthApiAdaptorService } from './adaptor/auth-api.adaptor';
 import { map } from 'rxjs/internal/operators/map';
-import { catchError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 
 @Injectable({
@@ -17,13 +17,13 @@ export class AuthLibraryService implements AuthApi {
 
   login(data: any): Observable<any> {
     return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-  catchError((error)=> of(error))
+  catchError((error)=> throwError(()=>error))
   );
   }
 
   register(data: any): Observable<any> {
     return this._httpClient.post(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-    catchError((error)=> of(error))
+    catchError((error)=>throwError(()=>error))
     );
   }
 

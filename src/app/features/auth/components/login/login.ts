@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthChoice } from '../../services/auth-choice';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +15,7 @@ import {AuthLibraryService} from 'auth'
 export class Login {
 
  _authService = inject(AuthLibraryService)
+  router = inject(Router)
 
   fb = inject(FormBuilder);
   form = this.fb.group({
@@ -28,8 +29,14 @@ onSubmit(){
   console.log(this.form.value);
   
   if(this.form.valid){
-  this._authService.login(this.form.value).subscribe(res=>{
-    console.log(res)
+  this._authService.login(this.form.value).subscribe({
+    next: (res) => {
+      console.log(res);
+      this.router.navigate(['/dashborad/student']);
+    },
+    error: (err) => {
+      console.log(err);
+    }
   });
 }
 }}
