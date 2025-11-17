@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
+import {AuthLibraryService} from 'auth'
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink],
@@ -12,6 +13,8 @@ import { AuthButton } from '../../layout/auth-button/auth-button';
   styleUrl: './login.css',
 })
 export class Login {
+
+ _authService = inject(AuthLibraryService)
 
   fb = inject(FormBuilder);
   form = this.fb.group({
@@ -22,6 +25,8 @@ export class Login {
 authChoiceService = inject(AuthChoice);
 
 onSubmit(){
-  console.log(this.form.value)
+  this._authService.login(this.form.value).subscribe(res=>{
+    console.log(res)
+  });
 }
 }

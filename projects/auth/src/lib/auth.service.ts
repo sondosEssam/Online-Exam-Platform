@@ -3,24 +3,28 @@ import { inject, Injectable } from '@angular/core';
 import { AuthApi } from './base/AuthApi';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthEndPoint } from './enums/authEndPoint';
-import { AuthApiAdaptorService } from '../public-api';
+import { AuthApiAdaptorService } from './adaptor/auth-api.adaptor';
 import { map } from 'rxjs/internal/operators/map';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements AuthApi {
+export class AuthLibraryService implements AuthApi {
   _httpClient = inject(HttpClient);
   _AuthApiAdaptorService = inject(AuthApiAdaptorService);
 
   login(data: any): Observable<any> {
-    // Implement login logic
-    return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)));
+    return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
+  catchError((error)=> of(error))
+  );
   }
 
   register(data: any): Observable<any> {
-    // Implement register logic
-    return this._httpClient.post(AuthEndPoint.REGISTER, data);
+    return this._httpClient.post(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
+    catchError((error)=> of(error))
+    );
   }
 
   changePassword(data: any): Observable<any> {

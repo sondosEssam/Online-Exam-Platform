@@ -44,26 +44,13 @@ class="flex-grow"
 
 
 
-<div class="w-full">
-  <ngx-material-intl-tel-input
-    [preferredCountries]="['eg', 'us']"
-    [enablePlaceholder]="true"
-    [enableSearch]="true"
-    [formControl]="registerForm.controls.phone"
-    
-    [ngClass]="{
-            'form-input-valid':!(registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)),
-            'form-input-error':registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)
-        }"
-  ></ngx-material-intl-tel-input>
-@if(registerForm.controls.phone.invalid && (registerForm.controls.phone.touched || registerForm.controls.phone.dirty)){
-  <p 
-     class="text-red-600 text-sm mt-1">
-    Invalid phone number
-  </p>
-}
-
-</div>
+<app-form-input
+[control]="registerForm.controls.phone"
+[label]="'Phone Number'"
+[placeHolder]="'Enter your phone number'"
+[errorMessage]="'phone number is requiered'"
+[type]="'tel'"
+></app-form-input>
 
 
 
@@ -71,14 +58,14 @@ class="flex-grow"
 [control]="registerForm.controls.password"
 [label]="'Password'"
 [placeHolder]="'*****'"
-[errorMessage]="'password is requiered'"
+[errorMessage]="'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.'"
 [type]="'password'"
 >
 </app-form-input>
 
 
 <app-form-input
-[control]="registerForm.controls.repassword"
+[control]="registerForm.controls.rePassword"
 [label]="'Confirm Password'"
 [placeHolder]="'******'"
 [errorMessage]="'repassword is requiered'"
