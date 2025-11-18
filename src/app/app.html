@@ -1,4 +1,8 @@
 @if(modalService.visiable()){
     <app-modal></app-modal>
 }
+
+@if(loadingService.isOpen()){
+    <app-loadingspinner></app-loadingspinner>
+}
 <router-outlet></router-outlet>
