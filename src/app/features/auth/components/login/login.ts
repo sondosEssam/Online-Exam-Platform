@@ -7,10 +7,9 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 import {AuthLibraryService} from 'auth'
 import { ModalService } from '../../../../shared/services/modal-service';
-import { Modal } from '../../../../shared/UI/modal/modal';
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink, Modal],
+  imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -41,10 +40,7 @@ onSubmit(){
     },
     error: (err) => {
       console.log(err.error.message);
-      this.modalService.open(err.error.message, 'error');
-      setTimeout(() => {
-        this.modalService.close();
-      }, 2000);
+      this.modalService.triggerModal(err.error.message, 'error');
     }
   });
 }

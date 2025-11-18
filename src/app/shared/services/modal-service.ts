@@ -18,6 +18,7 @@ export class ModalService {
     this.closing.set(false);
   }
   close(){
+
     this.closing.set(true);
     setTimeout(() => {
     this.message.set('');
@@ -25,6 +26,13 @@ export class ModalService {
     this.visiable.set(false); 
     this.closing.set(false);
   }, 300);
+  }
+  triggerModal(message:string, theme:'success' | 'error' | 'info'='info'){
+    this.open(message, theme);
+    setTimeout(()=>{
+      this.close();
+    }, 2000);
+
   }
 
 }
