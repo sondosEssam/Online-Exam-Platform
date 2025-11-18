@@ -1,3 +1,4 @@
+import { ModalService } from './../../../../shared/services/modal-service';
 import { Component, inject } from '@angular/core';
 import { AuthChoice } from '../../services/auth-choice';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,9 +15,12 @@ import { AuthLibraryService } from 'auth';
   styleUrl: './register.css',
 })
 export class Register {
+
 authChoiceService = inject(AuthChoice);
 _authService = inject(AuthLibraryService);
 router = inject(Router);
+errorService = inject(ModalService);
+
 
 fb = inject(FormBuilder);
 registerForm = this.fb.group({
@@ -41,14 +45,18 @@ const body ={
   this._authService.register(body).subscribe({
     next: (res) => {  
     console.log(res);
-    this.router.navigate(['/student/diploma']);
-    }
-
-    ,
+    this.router.navigate(['/student/diploma']).then(() => {
+      this.errorService.triggerModal('Registration Successful', 'success'); 
+    });
+  },
     error: (err) => {
-      console.log(err); 
+      this.errorService.triggerModal(err.error.message, 'error');
+      this.registerForm.reset();
   }} 
   );
+}
+else{
+  this.registerForm.markAllAsTouched();
 }
 }
 }

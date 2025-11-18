@@ -6,7 +6,6 @@ export function authInterceptor(req:HttpRequest<any>, next:HttpHandlerFn){
 return next(req).pipe(
 
 catchError((error: HttpErrorResponse)=>{
-    console.log('http error', error);
     let message = error.error?.message || 'An unknown error occurred';
     if(error.status===0){
         //handle network error
@@ -21,8 +20,20 @@ catchError((error: HttpErrorResponse)=>{
         //handle unauthorized error
        message = 'invalid email or password'
     }}
-    console.log(error);
-    
+
+    //regsiter error handling can be added here
+    else if(req.url.includes('/auth/signup')){
+        if(error.status===409 && error.error?.message.includes('email already exists')){
+            //handle conflict error
+           message = 'Email already in use. Please use a different email.';
+        }
+        else if(error.status===409 && error.error?.message.includes('username already exists')){
+            message = 'Username already exists. Please choose a different username.';
+        }
+        else if(error.status===401 &&error.error?.message.includes('\"rePassword\" must be [ref:password]')){
+            message = 'Passwords do not match. Please re-enter your password.';
+        }
+    }
     return throwError(() =>({...error, error: {...error.error, message}}));
 })
 

@@ -36,8 +36,11 @@ onSubmit(){
   this._authService.login(this.form.value).subscribe({
     next: (res) => {
       console.log(res);
-      this.router.navigate(['/student/diploma']);
-    },
+            this.form.reset();
+      this.router.navigate(['/student/diploma']).then(() => {
+
+      this.modalService.triggerModal('Login Successful', 'success');
+        });    },
     error: (err) => {
       console.log(err.error.message);
       this.modalService.triggerModal(err.error.message, 'error');
