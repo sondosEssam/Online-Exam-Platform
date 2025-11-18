@@ -41,7 +41,7 @@ const body ={
   this._authService.register(body).subscribe({
     next: (res) => {  
     console.log(res);
-    this.router.navigate(['/dashborad/student']);
+    this.router.navigate(['/student/diploma']);
     }
 
     ,

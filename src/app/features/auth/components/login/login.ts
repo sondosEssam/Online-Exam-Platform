@@ -6,9 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 import {AuthLibraryService} from 'auth'
+import { ModalService } from '../../../../shared/services/modal-service';
+import { Modal } from '../../../../shared/UI/modal/modal';
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink],
+  imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink, Modal],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -16,26 +18,33 @@ export class Login {
 
  _authService = inject(AuthLibraryService)
   router = inject(Router)
-
   fb = inject(FormBuilder);
+  authChoiceService = inject(AuthChoice);
+
+  modalService = inject(ModalService);
+
+
+  serverErrorMessage: string = '';
   form = this.fb.group({
     email:['', [Validators.required, Validators.email]],
     password:['', [Validators.required, Validators.minLength(6)]]
   })
 
-authChoiceService = inject(AuthChoice);
 
 onSubmit(){
-  console.log(this.form.value);
   
   if(this.form.valid){
   this._authService.login(this.form.value).subscribe({
     next: (res) => {
       console.log(res);
-      this.router.navigate(['/dashborad/student']);
+      this.router.navigate(['/student/diploma']);
     },
     error: (err) => {
-      console.log(err);
+      console.log(err.error.message);
+      this.modalService.open(err.error.message, 'error');
+      setTimeout(() => {
+        this.modalService.close();
+      }, 2000);
     }
   });
 }
