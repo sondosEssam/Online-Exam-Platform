@@ -33,6 +33,10 @@ export class AuthLibraryService implements AuthApi {
     );
 }
 
+  verifyResetCode(data: any): Observable<any> {
+    return this._httpClient.post(AuthEndPoint.RESET_CODE, data).pipe(catchError((error)=>throwError(()=>of(error)))
+    );
+  }
 
   changePassword(data: any): Observable<any> {
     return this._httpClient.patch(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
