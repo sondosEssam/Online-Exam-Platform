@@ -17,19 +17,26 @@ export class AuthLibraryService implements AuthApi {
 
   login(data: any): Observable<any> {
     return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-  catchError((error)=> throwError(()=>error))
+  catchError((error)=> throwError(()=>of(error)))
   );
   }
 
   register(data: any): Observable<any> {
     return this._httpClient.post(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-    catchError((error)=>throwError(()=>error))
+    catchError((error)=>throwError(()=>of(error)))
     );
   }
 
+ forgotPassword(data: any): Observable<any> {
+    return this._httpClient.post(AuthEndPoint.FORGOT_PASSWORD, data, {observe: 'response'}).pipe(map(res=>res.status),
+    catchError((error)=>throwError(()=>of(error)))
+    );
+}
+
+
   changePassword(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-    catchError((error)=>throwError(()=>error))
+    return this._httpClient.patch(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
+    catchError((error)=>throwError(()=>of(error)))
     );
   }
 
