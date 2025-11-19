@@ -16,6 +16,7 @@ export class Token {
     this.token.set('');
   }
   getToken(): string {
+    this.token.set(document.cookie.split('; ').find(row => row.startsWith('auth_token='))?.split('=')[1] || '');
     return this.token();
   }
 
