@@ -7,6 +7,7 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 import {AuthLibraryService} from 'auth'
 import { ModalService } from '../../../../shared/services/modal-service';
+import { Token } from '../../../../core/services/token';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink],
@@ -19,7 +20,7 @@ export class Login {
   router = inject(Router)
   fb = inject(FormBuilder);
   authChoiceService = inject(AuthChoice);
-
+  tokenService = inject(Token);
   modalService = inject(ModalService);
 
 
@@ -35,7 +36,7 @@ onSubmit(){
   if(this.form.valid){
   this._authService.login(this.form.value).subscribe({
     next: (res) => {
-      console.log(res);
+      this.tokenService.setToken(res.token);
             this.form.reset();
       this.router.navigate(['/student/diploma']).then(() => {
 
@@ -43,6 +44,7 @@ onSubmit(){
         });    },
     error: (err) => {
       console.log(err.error.message);
+      this.tokenService.clearToken();
       this.modalService.triggerModal(err.error.message, 'error');
     }
   });

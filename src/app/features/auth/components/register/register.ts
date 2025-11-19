@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from "@angular/router";
 import { AuthLibraryService } from 'auth';
+import { Token } from '../../../../core/services/token';
 @Component({
   selector: 'app-register',
   imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, RouterLink],
@@ -20,7 +21,7 @@ authChoiceService = inject(AuthChoice);
 _authService = inject(AuthLibraryService);
 router = inject(Router);
 errorService = inject(ModalService);
-
+tokenService = inject(Token);
 
 fb = inject(FormBuilder);
 registerForm = this.fb.group({
@@ -44,6 +45,7 @@ const body ={
   if(this.registerForm.valid){
   this._authService.register(body).subscribe({
     next: (res) => {  
+      this.tokenService.setToken(res.token);
     console.log(res);
     this.router.navigate(['/student/diploma']).then(() => {
       this.errorService.triggerModal('Registration Successful', 'success'); 
@@ -52,6 +54,7 @@ const body ={
     error: (err) => {
       this.errorService.triggerModal(err.error.message, 'error');
       this.registerForm.reset();
+      this.tokenService.clearToken();
   }} 
   );
 }

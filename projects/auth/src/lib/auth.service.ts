@@ -28,8 +28,9 @@ export class AuthLibraryService implements AuthApi {
   }
 
   changePassword(data: any): Observable<any> {
-    // Implement changePassword logic
-    return this._httpClient.post(AuthEndPoint.CHANGE_PASSWORD, data);
+    return this._httpClient.post(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
+    catchError((error)=>throwError(()=>error))
+    );
   }
 
   deleteMe(data: any): Observable<any> {
