@@ -33,10 +33,13 @@ formForgetPassword = this.fb.group({
   email:['']
 });
 
+email= '';
+
 onSubmit(){
   this.authService.forgotPassword(this.formForgetPassword.value).subscribe({
     next: (res) => {
       this.authChoiceService.setAuthChoice('verify-otp');
+      this.email = this.formForgetPassword.controls.email.value || '';
     },
     error: (err) => {
       const msg = err?.error?.message ?? 'An unknown error occurred';
