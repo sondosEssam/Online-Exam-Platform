@@ -12,5 +12,4 @@ return next(req).pipe(
   })
 );      
 
-return next(req)
 }

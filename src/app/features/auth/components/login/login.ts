@@ -42,10 +42,9 @@ onSubmit(){
 
       this.modalService.triggerModal('Login Successful', 'success');
         });    },
-    error: (err) => {
-      console.log(err.error.message);
+    error: (err) => {      
       this.tokenService.clearToken();
-      this.modalService.triggerModal(err.error.message, 'error');
+      this.modalService.triggerModal(err.error?.message, 'error');
     }
   });
 }

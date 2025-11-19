@@ -16,31 +16,25 @@ export class AuthLibraryService implements AuthApi {
   _AuthApiAdaptorService = inject(AuthApiAdaptorService);
 
   login(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-  catchError((error)=> throwError(()=>of(error)))
+    return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
   );
   }
 
   register(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-    catchError((error)=>throwError(()=>of(error)))
-    );
+    return this._httpClient.post(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)));
   }
 
  forgotPassword(data: any): Observable<any> {
     return this._httpClient.post(AuthEndPoint.FORGOT_PASSWORD, data, {observe: 'response'}).pipe(map(res=>res.status),
-    catchError((error)=>throwError(()=>of(error)))
     );
 }
 
   verifyResetCode(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.RESET_CODE, data).pipe(catchError((error)=>throwError(()=>of(error)))
-    );
+    return this._httpClient.post(AuthEndPoint.RESET_CODE, data)
   }
 
   changePassword(data: any): Observable<any> {
-    return this._httpClient.patch(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)),
-    catchError((error)=>throwError(()=>of(error)))
+    return this._httpClient.patch(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
     );
   }
 

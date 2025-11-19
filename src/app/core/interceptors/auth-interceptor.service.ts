@@ -38,12 +38,16 @@ catchError((error: HttpErrorResponse)=>{
     else if(req.url.includes('/auth/signup')){
         if(error.status===409 && error.error?.message.includes('email already exists')){
             //handle conflict error
+            console.log('email already exist');
+            
            message = 'Email already in use. Please use a different email.';
         }
         else if(error.status===409 && error.error?.message.includes('username already exists')){
+            console.log('username already exist');
             message = 'Username already exists. Please choose a different username.';
         }
         else if(error.status===401 &&error.error?.message.includes('\"rePassword\" must be [ref:password]')){
+            console.log('passwords do not match');
             message = 'Passwords do not match. Please re-enter your password.';
         }
     }
@@ -55,7 +59,17 @@ catchError((error: HttpErrorResponse)=>{
             message = 'Email not found. Please check and try again.';
         }}
 
-    return throwError(() =>({...error, error: {...error.error, message}}));
+         console.log('Final message:', message);
+            console.log('========================');
+             const enhancedError = {
+                ...error,
+                error: {
+                    ...error.error,
+                    message: message // This ensures message is always available
+                }
+            };
+
+    return throwError(() =>({...enhancedError}));
 }) 
 ,
 

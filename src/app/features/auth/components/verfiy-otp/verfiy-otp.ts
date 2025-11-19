@@ -18,7 +18,7 @@ export class VerfiyOtp {
 authChoiceService = inject(AuthChoice);
 errorService = inject(ModalService);
 authService = inject(AuthLibraryService);
-counter = signal(60);
+counter = signal(120);
 
 fb = inject(FormBuilder);
   ngOnInit() {
@@ -33,8 +33,7 @@ fb = inject(FormBuilder);
   }
   onSubmit() {
     console.log(this.form.value);
-    
-    this.authService.verifyResetCode(this.form.value).subscribe({
+    this.authService.verifyResetCode({resetCode:this.form.value.otp}).subscribe({
       next:(res)=>{
         console.log(res);
         this.errorService.triggerModal('Code verified successfully', 'success');
@@ -45,7 +44,7 @@ fb = inject(FormBuilder);
         
         this.errorService.triggerModal('Invalid code, please try again', 'error');
         this.form.reset();
-        this.counter.set(60);
+        this.counter.set(120);
         this.authChoiceService.setAuthChoice('forget-password');
       }
       

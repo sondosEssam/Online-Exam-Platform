@@ -52,7 +52,7 @@ const body ={
     });
   },
     error: (err) => {
-      this.errorService.triggerModal(err.error.message, 'error');
+      this.errorService.triggerModal(err.error?.message, 'error');
       this.registerForm.reset();
       this.tokenService.clearToken();
   }} 
