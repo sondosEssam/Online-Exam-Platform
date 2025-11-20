@@ -34,7 +34,7 @@ export class AuthLibraryService implements AuthApi {
   }
   
   resetPassword(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.RESET_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
+    return this._httpClient.put(AuthEndPoint.RESET_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
     );
   }
 
