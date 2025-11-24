@@ -1,5 +1,5 @@
 import { AuthChoice } from './../../services/auth-choice';
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { AuthButton } from "../../layout/auth-button/auth-button";
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgOtpInputComponent } from 'ng-otp-input';
@@ -19,6 +19,7 @@ authChoiceService = inject(AuthChoice);
 errorService = inject(ModalService);
 authService = inject(AuthLibraryService);
 counter = signal(120);
+email = input<string>('');
 
 fb = inject(FormBuilder);
   ngOnInit() {
@@ -31,17 +32,22 @@ fb = inject(FormBuilder);
   setForgetPassword() {
     this.authChoiceService.setAuthChoice('forget-password');
   }
+
+  resendCode() {
+    this.authService.forgotPassword({email: this.email()}).subscribe({
+      next: (res) => {
+        this.errorService.triggerModal('A new code has been sent to your email', 'success');
+      }
+    });
+  }
   onSubmit() {
     console.log(this.form.value);
     this.authService.verifyResetCode({resetCode:this.form.value.otp||''}).subscribe({
       next:(res)=>{
-        console.log(res);
         this.errorService.triggerModal('Code verified successfully', 'success');
         this.authChoiceService.setAuthChoice('new-password');
       },
-      error: (err) => {
-        console.log(err);
-        
+      error: (err) => {        
         this.errorService.triggerModal('Invalid code, please try again', 'error');
         this.form.reset();
         this.counter.set(120);
