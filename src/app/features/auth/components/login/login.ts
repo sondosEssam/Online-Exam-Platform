@@ -33,8 +33,12 @@ export class Login {
 
 onSubmit(){
   
-  if(this.form.valid){
-  this._authService.login(this.form.value).subscribe({
+  if(this.form.valid && this.form.value){
+    const loginData = {
+      email: this.form.controls.email.value || '',
+      password: this.form.controls.password.value || ''
+    };
+  this._authService.login(loginData).subscribe({
     next: (res) => {
       this.tokenService.setToken(res.token);
             this.form.reset();

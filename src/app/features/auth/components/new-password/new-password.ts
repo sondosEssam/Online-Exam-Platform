@@ -31,7 +31,11 @@ setForgetPassword() {
   }
 
   onSubmit() {
-    this.authService.resetPassword({ ...this.registerForm.value, email: this.email() }).subscribe({
+    const newPasswordData = {
+      newPassword: this.registerForm.controls.newPassword.value || '',
+      email: this.email()
+    };
+    this.authService.resetPassword(newPasswordData).subscribe({
       next: (res) => {
         console.log(res); 
         this.setForgetPassword()

@@ -38,8 +38,14 @@ registerForm = this.fb.group({
 
 onSubmit(){
 const body ={
-    ...this.registerForm.value,
-    phone:this.registerForm.value.phone?.replace(/\s+/g, '')
+    username:this.registerForm.value.username || '',
+    firstName:this.registerForm.value.firstName || '',
+    lastName:this.registerForm.value.lastName || '',
+    email:this.registerForm.value.email || '',
+    password:this.registerForm.value.password || '',
+    rePassword:this.registerForm.value.rePassword || '',
+    // Remove spaces from phone number
+    phone:this.registerForm.value.phone?.replace(/\s+/g, '')||''
   }
 
   if(this.registerForm.valid){

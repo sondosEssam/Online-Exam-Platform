@@ -3,11 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import { AuthApi } from './base/AuthApi';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthEndPoint } from './enums/authEndPoint';
-import { AuthApiAdaptorService } from './adaptor/auth-api.adaptor';
+import { AuthAdapted, AuthApiAdaptor, AuthApiAdaptorService } from './adaptor/auth-api.adaptor';
 import { map } from 'rxjs/internal/operators/map';
-import { catchError, throwError } from 'rxjs';
-import { of } from 'rxjs/internal/observable/of';
-
+import * as authData from './interfaces/auth-data';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,32 +13,31 @@ export class AuthLibraryService implements AuthApi {
   _httpClient = inject(HttpClient);
   _AuthApiAdaptorService = inject(AuthApiAdaptorService);
 
-  login(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
+  login(data:authData.loginData): Observable<AuthApiAdaptor> {
+    return this._httpClient.post<AuthAdapted>(AuthEndPoint.LOGIN, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
   );
   }
 
-  register(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)));
+  register(data: authData.registerData): Observable<AuthApiAdaptor> {
+    return this._httpClient.post<AuthAdapted>(AuthEndPoint.REGISTER, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res)));
   }
 
- forgotPassword(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.FORGOT_PASSWORD, data, {observe: 'response'}).pipe(map(res=>res.status),
+ forgotPassword(data: authData.forgetPasswordPasswordData): Observable<number> {
+    return this._httpClient.post<AuthAdapted>(AuthEndPoint.FORGOT_PASSWORD, data, {observe: 'response'}).pipe(map(res=>res.status),
     );
 }
 
-  verifyResetCode(data: any): Observable<any> {
-    return this._httpClient.post(AuthEndPoint.RESET_CODE, data)
+  verifyResetCode(data: authData.verifyResetCodeData): Observable<number> {
+    return this._httpClient.post<AuthAdapted>(AuthEndPoint.RESET_CODE, data, {observe: 'response'}).pipe(map(res=>res.status),);  
   }
   
-  resetPassword(data: any): Observable<any> {
-    return this._httpClient.put(AuthEndPoint.RESET_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
+  resetPassword(data: authData.resetPasswordData): Observable<AuthApiAdaptor> {
+    return this._httpClient.put<AuthAdapted>(AuthEndPoint.RESET_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
     );
   }
 
   changePassword(data: any): Observable<any> {
-    return this._httpClient.patch(AuthEndPoint.CHANGE_PASSWORD, data).pipe(map(res=>this._AuthApiAdaptorService.adapt(res))
-    );
+    return this._httpClient.patch(AuthEndPoint.CHANGE_PASSWORD, data);
   }
 
   deleteMe(data: any): Observable<any> {

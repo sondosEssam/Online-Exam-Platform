@@ -33,7 +33,7 @@ fb = inject(FormBuilder);
   }
   onSubmit() {
     console.log(this.form.value);
-    this.authService.verifyResetCode({resetCode:this.form.value.otp}).subscribe({
+    this.authService.verifyResetCode({resetCode:this.form.value.otp||''}).subscribe({
       next:(res)=>{
         console.log(res);
         this.errorService.triggerModal('Code verified successfully', 'success');
