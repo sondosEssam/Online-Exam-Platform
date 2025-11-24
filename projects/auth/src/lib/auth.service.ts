@@ -3,7 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { AuthApi } from './base/AuthApi';
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthEndPoint } from './enums/authEndPoint';
-import { AuthAdapted, AuthApiAdaptor, AuthApiAdaptorService } from './adaptor/auth-api.adaptor';
+import { AuthApiAdaptorService } from './adaptor/auth-api.adaptor';
+import { AuthApiAdaptor, AuthAdapted } from './interfaces/adaptor';
 import { map } from 'rxjs/internal/operators/map';
 import * as authData from './interfaces/auth-data';
 @Injectable({
