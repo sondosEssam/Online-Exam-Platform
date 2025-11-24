@@ -22,8 +22,9 @@ export class NewPassword {
   authService = inject(AuthLibraryService)
   authChoiceService = inject(AuthChoice);
   modalService = inject(ModalService);
-  registerForm = this.fb.group({
+  form = this.fb.group({
     newPassword:['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+    confirmPassword:['', Validators.required],
   });
 
 setForgetPassword() {
@@ -32,18 +33,26 @@ setForgetPassword() {
 
   onSubmit() {
     const newPasswordData = {
-      newPassword: this.registerForm.controls.newPassword.value || '',
+      newPassword: this.form.controls.newPassword.value || '',
       email: this.email()
     };
+    if(this.form.controls.newPassword.value !== this.form.controls.confirmPassword.value){
+      this.modalService.triggerModal('Passwords do not match', 'error');
+      return;
+    }
+
     this.authService.resetPassword(newPasswordData).subscribe({
       next: (res) => {
-        console.log(res); 
         this.setForgetPassword()
         this.router.navigate(['/auth/login']).then(()=>{
           this.modalService.triggerModal('Password changed successfully', 'success');
         })
       },
       error: (err) => {
+        const msg = err?.error?.message ?? 'An unknown error occurred';
+        this.modalService.triggerModal(msg, 'error');
+        this.setForgetPassword();
+        this.router.navigate(['/auth/login']);
       }
     });
   }

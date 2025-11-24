@@ -27,7 +27,7 @@ export class Login {
   serverErrorMessage: string = '';
   form = this.fb.group({
     email:['', [Validators.required, Validators.email]],
-    password:['', [Validators.required, Validators.minLength(6)]]
+    password:['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
   })
 
 
