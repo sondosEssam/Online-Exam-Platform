@@ -6,6 +6,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authInterceptor } from './core/interceptors/auth-interceptor.service';
 import { spinnerInterceptor } from './core/interceptors/spinner-interceptor';
+import { BaseUrl } from 'auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptors([spinnerInterceptor,authInterceptor])),
-    provideAnimations()
+    provideAnimations(),
+    {provide: BaseUrl, useValue: 'https://exam.elevateegy.com/api/v1/'}
   ]
 };
