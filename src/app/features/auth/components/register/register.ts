@@ -1,3 +1,4 @@
+import { ModalService } from './../../../../shared/services/modal-service';
 import { Component, inject } from '@angular/core';
 import { AuthChoice } from '../../services/auth-choice';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -5,33 +6,66 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NgxMaterialIntlTelInputComponent  } from 'ngx-material-intl-tel-input';
-import { NgClass } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { AuthLibraryService } from 'auth';
+import { Token } from '../../../../core/services/token';
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, NgxMaterialIntlTelInputComponent, NgClass, RouterLink],
+  imports: [ReactiveFormsModule, FormInput, AuthButton, MatFormFieldModule, MatInputModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
 export class Register {
+
 authChoiceService = inject(AuthChoice);
+_authService = inject(AuthLibraryService);
+router = inject(Router);
+errorService = inject(ModalService);
+tokenService = inject(Token);
+
 fb = inject(FormBuilder);
 registerForm = this.fb.group({
   username:['', Validators.required],
   firstName:['',Validators.required],
   lastName:['',Validators.required],
   email:['',Validators.required],
-  password:['',Validators.required],
-  repassword:['',Validators.required],
-  phone:['',Validators.required, [Validators.pattern(/^\+?\d{10,15}$/)]],
+  password:['',[Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+  rePassword:['',Validators.required],
+  phone:['',[Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
 
 })
 
 
 onSubmit(){
-  console.log(this.registerForm.value);
-  
-}
+const body ={
+    username:this.registerForm.value.username || '',
+    firstName:this.registerForm.value.firstName || '',
+    lastName:this.registerForm.value.lastName || '',
+    email:this.registerForm.value.email || '',
+    password:this.registerForm.value.password || '',
+    rePassword:this.registerForm.value.rePassword || '',
+    // Remove spaces from phone number
+    phone:this.registerForm.value.phone?.replace(/\s+/g, '')||''
+  }
 
+  if(this.registerForm.valid){
+  this._authService.register(body).subscribe({
+    next: (res) => {  
+      this.tokenService.setToken(res.token);
+    console.log(res);
+    this.router.navigate(['/student/diploma']).then(() => {
+      this.errorService.triggerModal('Registration Successful', 'success'); 
+    });
+  },
+    error: (err) => {
+      this.errorService.triggerModal(err.error?.message, 'error');
+      this.registerForm.reset();
+      this.tokenService.clearToken();
+  }} 
+  );
+}
+else{
+  this.registerForm.markAllAsTouched();
+}
+}
 }

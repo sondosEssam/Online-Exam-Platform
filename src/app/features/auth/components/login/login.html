@@ -1,4 +1,6 @@
 
+
+
 <div class="h-[100vh] flex justify-center items-center">
     <form (ngSubmit)="onSubmit()" [formGroup]="form"   class="flex flex-col space-y-4  md:w-[70%] w-[90%] p-6  ">
     <h1 class="text-2xl font-bold mb-6">Login</h1>
@@ -10,6 +12,8 @@
     [type]="'email'"
     [errorMessage]="'cannot leave it empty'"
     ></app-form-input>
+
+
     <div class="flex flex-col space-y-2">
     <app-form-input 
     [placeHolder]="'*****'"

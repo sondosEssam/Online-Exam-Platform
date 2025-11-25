@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthChoice } from '../../services/auth-choice';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from '../../layout/auth-button/auth-button';
+import {AuthLibraryService} from 'auth'
+import { ModalService } from '../../../../shared/services/modal-service';
+import { Token } from '../../../../core/services/token';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, FormInput, AuthButton, RouterLink],
@@ -13,15 +16,40 @@ import { AuthButton } from '../../layout/auth-button/auth-button';
 })
 export class Login {
 
+ _authService = inject(AuthLibraryService)
+  router = inject(Router)
   fb = inject(FormBuilder);
+  authChoiceService = inject(AuthChoice);
+  tokenService = inject(Token);
+  modalService = inject(ModalService);
+
+
+  serverErrorMessage: string = '';
   form = this.fb.group({
-    email:['', Validators.required, Validators.email],
-    password:['', Validators.required, Validators.minLength(6)]
+    email:['', [Validators.required, Validators.email]],
+    password:['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
   })
 
-authChoiceService = inject(AuthChoice);
 
 onSubmit(){
-  console.log(this.form.value)
+  
+  if(this.form.valid && this.form.value){
+    const loginData = {
+      email: this.form.controls.email.value || '',
+      password: this.form.controls.password.value || ''
+    };
+  this._authService.login(loginData).subscribe({
+    next: (res) => {
+      this.tokenService.setToken(res.token);
+            this.form.reset();
+      this.router.navigate(['/student/diploma']).then(() => {
+
+      this.modalService.triggerModal('Login Successful', 'success');
+        });    },
+    error: (err) => {      
+      this.tokenService.clearToken();
+      this.modalService.triggerModal(err.error?.message, 'error');
+    }
+  });
 }
-}
+}}

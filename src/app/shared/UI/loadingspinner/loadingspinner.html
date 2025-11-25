@@ -1,0 +1,11 @@
+@if(_loadSpinnerService.isOpen()){
+    <div class="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-[99]">
+
+<mat-progress-spinner
+  class="mx-auto"
+  [color]="'primary'"
+  [mode]="'indeterminate'"
+  [diameter]="50">
+</mat-progress-spinner>
+    </div>
+}

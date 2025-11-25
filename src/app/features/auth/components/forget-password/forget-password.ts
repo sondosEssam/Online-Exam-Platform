@@ -9,6 +9,9 @@ import { FormInput } from "../../../../shared/UI/form-input/form-input";
 import { AuthButton } from "../../layout/auth-button/auth-button";
 
 import { AuthChoice } from '../../services/auth-choice';
+import { AuthLibraryService } from 'auth';
+
+import { ModalService } from '../../../../shared/services/modal-service';
 
 @Component({
   selector: 'app-forget-password',
@@ -23,13 +26,26 @@ import { AuthChoice } from '../../services/auth-choice';
 export class ForgetPassword {
 fb = inject(FormBuilder);
 authChoiceService = inject(AuthChoice);
+authService = inject(AuthLibraryService);
+errorService = inject(ModalService);
+
 formForgetPassword = this.fb.group({
   email:['']
 });
 
+email= '';
+
 onSubmit(){
-  console.log(this.formForgetPassword.value);
-  this.authChoiceService.setAuthChoice('verify-otp');
+  this.email = this.formForgetPassword.controls.email.value || '';
+  this.authService.forgotPassword({email: this.email}).subscribe({
+    next: (res) => {
+      this.authChoiceService.setAuthChoice('verify-otp');
+    },
+    error: (err) => {
+      const msg = err?.error?.message ?? 'An unknown error occurred';
+      this.errorService.triggerModal(msg, 'error');
+    }
+  });
 
 }
 }
