@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
   selector: 'app-breedcamb',
-  imports: [],
+  imports: [BreadcrumbModule],
   templateUrl: './breedcamb.html',
   styleUrl: './breedcamb.css',
 })
