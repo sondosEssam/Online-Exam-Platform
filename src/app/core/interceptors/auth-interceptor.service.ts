@@ -2,7 +2,6 @@ import { HttpErrorResponse, HttpHandlerFn, HttpRequest } from "@angular/common/h
 import { inject } from "@angular/core";
 import { catchError, throwError } from "rxjs";
 import { Token } from "../services/token";
-import { of } from "rxjs";
 export function authInterceptor(req:HttpRequest<any>, next:HttpHandlerFn){
 const tokenService = inject(Token);
 const token = tokenService.getToken();
@@ -10,9 +9,12 @@ let authReq = req
 if(token){
     authReq = req.clone({
         setHeaders: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            token: `${token}`
         }
+
     });
+    
 }
 return next(authReq).pipe(
 
@@ -49,6 +51,12 @@ catchError((error: HttpErrorResponse)=>{
         else if(error.status===401 &&error.error?.message.includes('\"rePassword\" must be [ref:password]')){
             console.log('passwords do not match');
             message = 'Passwords do not match. Please re-enter your password.';
+        }
+    }
+    //edit profile error handling
+    else if(req.url.includes('auth/editProfile')){
+        if(error.status===500){
+            message = 'Internal server error while updating profile. Please try again later.';
         }
     }
 

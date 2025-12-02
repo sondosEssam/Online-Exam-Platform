@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import { authGuard } from '../../core/guards/auth-guard';
 export const studentRoutes: Routes=[
     {path:'student', loadComponent:()=>import('./student').then(m=>m.Student),data:{Breadcrumb:'Home'}, 
         children:[
@@ -10,7 +10,8 @@ export const studentRoutes: Routes=[
                     { path: '', redirectTo: 'profile', pathMatch: 'full' },
                     {path:'profile', loadComponent:()=>import('./components/account/profile/profile').then(m=>m.Profile), data:{Breadcrumb:'Profile'}},
                     {path:'changePassword', loadComponent:()=>import('./components/account/chnage-password/chnage-password').then(m=>m.ChnagePassword), data:{Breadcrumb:'Change Password'}}
-            ]
+            ],
+            canActivateChild:[authGuard]
         },
         ]
     }

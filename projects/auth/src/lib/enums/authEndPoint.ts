@@ -8,6 +8,7 @@ export class AuthEndPoint {
     static readonly DELETEMYACCOUNT = 'auth/deleteMe';
     static readonly EDITPROFILE = 'auth/editProfile';
     static readonly LOGOUT = 'auth/logout';
+    static readonly USERINFO = 'auth/profileData'
 }
 
 

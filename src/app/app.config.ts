@@ -23,6 +23,6 @@ export const appConfig: ApplicationConfig = {
         preset: Aura
       }
     }),
-    {provide: BaseUrl, useValue: 'https://exam.elevateegy.com/api/v1/'}
+    {provide: BaseUrl, useValue: 'https://exam.elevateegy.com/api/v1'}
   ]
 };
