@@ -1,10 +1,32 @@
-<main class="grid grid-cols-6 grid-rows-10 w-[100%] flex-1 h-full">
-<div class="col-span-6 row-span-1 flex space-x-2">
+<main class="grid grid-cols-10 grid-rows-10 gap-y-3 w-[100%] h-[97%]">
+<div class="col-span-10 row-span-1 flex space-x-2">
     <app-back-button></app-back-button>
     <div appHeadtag class="flex-1 ">
         <i class="fa fa-user"></i>
         Account Settings
     </div>
 
+</div>
+<div class="col-span-3 row-span-9">
+    <div class=" bg-white p-2 h-full ">
+
+<div class="menu flex flex-col  justify-between w-full h-[90%]">
+
+    <ul class="flex flex-col space-y-6  text-gray-500">
+        <li class="h-[50px] p-4 flex items-center" routerLinkActive="active">
+            <i class="fa-solid fa-graduation-cap text-blue-600 mr-1"></i>
+            <a routerLink="/student/account/profile"> Profile</a>
+        </li>
+        <li class="h-[50px] p-2 flex items-center" routerLinkActive="active">
+            <i class="fa-solid fa-person text-blue-600 mr-1"></i>
+            <a routerLink="/student/account/changePassword">Change password</a>
+        </li>
+    </ul>
+</div>
+
+</div>
+</div>
+<div class="col-span-7 row-span-9 p-5">
+    <router-outlet></router-outlet>
 </div>
 </main>
