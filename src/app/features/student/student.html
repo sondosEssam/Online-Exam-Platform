@@ -1,8 +1,10 @@
 <div class="flex h-[100vh]">
 
 <app-sidebar class="hidden md:block"></app-sidebar>
-<div class="flex-1 flex flex-col">
+<div class="flex-1 flex flex-col h-full">
     <app-breedcamb></app-breedcamb>
-    <router-outlet></router-outlet>
+    <div class="flex-1">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 </div>
