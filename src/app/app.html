@@ -3,6 +3,8 @@
 }
 
 @if(loadingService.isOpen()){
-    <app-loadingspinner></app-loadingspinner>
+    <app-loadingspinner>
+    </app-loadingspinner>
 }
+<app-confirm-dialog></app-confirm-dialog>
 <router-outlet></router-outlet>

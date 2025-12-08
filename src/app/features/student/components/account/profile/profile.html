@@ -50,10 +50,11 @@ class="flex-grow"
 [type]="'tel'"
 ></app-form-input>
 
-<div class="flex justify-evenly  space-x-2 mt-4">
-    <button appColorDir colorType="red" class="flex-1">Delete My Account</button>
-    <button appColorDir colorType="blue" class="flex-1" type="submit" class="cursor-pointer" [disabled]="profileForm.pristine">Save Changes</button>
+</form>
 
+<div class="flex justify-evenly  space-x-2 mt-4">
+
+    <button appColorDir colorType="red" class="flex-1" type="button" (click)="confirm()">Delete My Account</button>
+    <button appColorDir colorType="blue" class="flex-1" type="submit" (click)="onSubmit()" [class.cursor-pointer]="!profileForm.pristine" [disabled]="profileForm.pristine">Save Changes</button>
 </div>
 
-</form>
