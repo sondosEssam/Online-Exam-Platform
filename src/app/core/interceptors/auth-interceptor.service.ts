@@ -59,7 +59,11 @@ catchError((error: HttpErrorResponse)=>{
             message = 'Internal server error while updating profile. Please try again later.';
         }
     }
-
+    else if(req.url.includes('auth/changePassword')){
+        if(error.status===401 && error.error?.message.includes('rePassword" must be [ref:password]')){
+            message = 'New passwords do not match. Please re-enter your new password.';
+        }
+    }
 
     //forget password  
     else if(req.url.includes('/auth/change-password')){
