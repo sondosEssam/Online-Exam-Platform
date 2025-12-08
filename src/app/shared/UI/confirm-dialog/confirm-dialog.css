@@ -5,8 +5,8 @@
     
     /* This makes your div sizing work */
     .bg-primary.text-primary-contrast {
-        height: 20rem !important;
-        width: 20rem !important;
+        height: 700px !important;
+        width: 700px !important;
     }
     
     /* This makes button styling work */

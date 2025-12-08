@@ -10,6 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogComponent } from "../../../../../shared/UI/confirm-dialog/confirm-dialog";
+import { Router } from '@angular/router';
+import { Token } from '../../../../../core/services/token';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +36,7 @@ profileForm = this.fb.group({
   phone: ['', Validators.required],
 })
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService, 
-      private authService: AuthLibraryService
+      private authService: AuthLibraryService, private router:Router, private token:Token
     ) {}
     confirm() {
       console.log('happend');
@@ -43,11 +45,12 @@ profileForm = this.fb.group({
             header: 'Are you sure you want to delete your account?',
             message: 'This action is permanent and cannot be undone.',
             accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
                 this.authService.deleteMe().subscribe({
                   next: (res) => {
                     console.log(res);
                     this.modalService.triggerModal('Account deleted successfully');
+                    this.token.clearToken();
+                    this.router.navigate(['/auth/login']);
                   },
                   error: (err) => {
                     console.log(err);
@@ -56,7 +59,7 @@ profileForm = this.fb.group({
                 });
             },
             reject: () => {
-                this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+
             },
         });
     }

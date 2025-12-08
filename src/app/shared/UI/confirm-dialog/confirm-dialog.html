@@ -1,10 +1,10 @@
 <p-toast class="w-96 h-96" />
 <p-confirmdialog #cd>
     <ng-template #headless   pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-        <div class="flex flex-col items-center justify-center p-8 bg-surface-0 dark:bg-surface-900 w-96 h-96">
+        <div class="flex flex-col items-center justify-center p-8 bg-surface-0 dark:bg-surface-900 w-96 h-96" style="width: 550px; height: 400px;">
             <div
                 class="bg-primary text-primary-contrast flex flex-col justify-center items-center -mt-20"
-                style="height: 20rem; width: 20rem;"
+                style="height: 100%; width:100%;"
             >
                 <span class="flex justify-center items-center rounded-full bg-red-50" style="width: 110px; height: 110px;">
                     <span class="text-red-600 text-5xl flex justify-center items-center rounded-full bg-red-100" style="height: 80px; width: 80px;">
@@ -14,19 +14,19 @@
                 <span class="font-bold text-2xl block mb-2 mt-6 text-red-500">{{ message.header }}</span>
                 <p class="mb-0 text-red-500">{{ message.message }}</p>
             </div>
-
+            <br class="text-slate-500 w-full h-1">
             <div class="flex items-center  mt-6 w-full">
                 <p-button 
                     label="Cancel" 
                     (onClick)="onReject()" 
                     class="flex-1"
-                    [style]="{'background-color': '#e2e8f0', 'border-color': '#e2e8f0', 'color': '#1e293b', 'flex-grow': '1', 'width':' 100%'}"
+                    [style]="{'background-color': '#e2e8f0', 'border-color': '#e2e8f0', 'color': '#1e293b', 'flex-grow': '1', 'width':' 100%', 'border': 'none'}"
                 ></p-button>
                 <p-button 
                     label="Yes, Delete" 
                     (onClick)="onAccept()" 
                     class="flex-1 mr-2"
-                    [style]="{'background-color': '#ef4444', 'border-color': '#ef4444', 'color': 'white', 'flex-grow': '1', 'width':' 100%', 'margin-left': '0.5rem'}"
+                    [style]="{'background-color': '#ef4444', 'border-color': '#ef4444', 'color': 'white', 'flex-grow': '1', 'width':' 100%', 'margin-left': '0.5rem', 'border': 'none'}"
                 ></p-button>
             </div>
         </div>
