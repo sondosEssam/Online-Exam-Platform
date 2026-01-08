@@ -47,7 +47,7 @@ fb = inject(FormBuilder);
         this.errorService.triggerModal('Code verified successfully', 'success');
         this.authChoiceService.setAuthChoice('new-password');
       },
-      error: (err) => {        
+      error: (err: any) => {        
         this.errorService.triggerModal('Invalid code, please try again', 'error');
         this.form.reset();
         this.counter.set(120);

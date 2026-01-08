@@ -1,0 +1,60 @@
+<form  class="flex flex-col space-y-3  font-semibold w-[100%] overflow-y-auto" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <h1 class="text-2xl font-bold self-start">Create Account</h1>
+
+
+<div class="flex flex-col md:flex-row">
+<app-form-input
+[control]="profileForm.controls.firstName"
+[label]="'First Name'"
+[placeHolder]="'first name'"
+[errorMessage]="'name is requiered'"
+[type]="'text'"
+class="flex-grow mr-2"
+>
+</app-form-input>
+<app-form-input
+[control]="profileForm.controls.lastName"
+[label]="'Last Name'"
+[placeHolder]="'last name'"
+[errorMessage]="'name is requiered'"
+[type]="'text'"
+class="flex-grow"
+>
+</app-form-input>
+</div>
+<app-form-input
+[control]="profileForm.controls.username"
+[label]="'user Name'"
+[placeHolder]="'user name'"
+[errorMessage]="'name is requiered'"
+[type]="'text'"
+>
+
+</app-form-input>
+
+<app-form-input
+[control]="profileForm.controls.email"
+[label]="'Email'"
+[placeHolder]="'email@example.com'"
+[errorMessage]="'email is reuiqred'"
+[type]="'email'"
+></app-form-input>
+
+
+
+<app-form-input
+[control]="profileForm.controls.phone"
+[label]="'Phone Number'"
+[placeHolder]="'Enter your phone number'"
+[errorMessage]="'phone number is requiered'"
+[type]="'tel'"
+></app-form-input>
+
+</form>
+
+<div class="flex justify-evenly  space-x-2 mt-4">
+
+    <button appColorDir colorType="red" class="flex-1" type="button" (click)="confirm()">Delete My Account</button>
+    <button appColorDir colorType="blue" class="flex-1" type="submit" (click)="onSubmit()" [class.cursor-pointer]="!profileForm.pristine" [disabled]="profileForm.pristine">Save Changes</button>
+</div>
+

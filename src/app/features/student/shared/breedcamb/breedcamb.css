@@ -1,0 +1,6 @@
+:host ::ng-deep .p-breadcrumb-list .p-breadcrumb-item:last-child .p-menuitem-text,
+:host ::ng-deep .p-breadcrumb-list .p-breadcrumb-item:last-child a,
+:host ::ng-deep .p-breadcrumb-list li:last-child {
+  color: #3b82f6 !important;
+  font-weight: 600 !important;
+}

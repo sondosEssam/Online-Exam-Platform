@@ -12,4 +12,5 @@ export abstract class AuthApi {
     abstract editProfile(data:any):Observable<any>;
     abstract changePassword(data:any):Observable<any>;
     abstract logout(data:any):Observable<any>;
+    abstract getUserInfo():Observable<any>;
 }

@@ -46,18 +46,21 @@ export class AuthLibraryService implements AuthApi {
     return this._httpClient.patch(`${this._baseUrl}/${AuthEndPoint.CHANGE_PASSWORD}`, data);
   }
 
-  deleteMe(data: any): Observable<any> {
+  deleteMe(): Observable<any> {
     // Implement deleteMe logic
-    return this._httpClient.post(`${this._baseUrl}/${AuthEndPoint.DELETEMYACCOUNT}`, data);
+    return this._httpClient.delete(`${this._baseUrl}/${AuthEndPoint.DELETEMYACCOUNT}`);
   }
 
   editProfile(data: any): Observable<any> {
     // Implement editProfile logic
-    return this._httpClient.post(`${this._baseUrl}/${AuthEndPoint.EDITPROFILE}`, data);
+    return this._httpClient.put(`${this._baseUrl}/${AuthEndPoint.EDITPROFILE}`, data);
   }
 
-  logout(data: any): Observable<any> {
+  logout(): Observable<any> {
     // Implement logout logic
-    return this._httpClient.post(`${this._baseUrl}/${AuthEndPoint.LOGOUT}`, data);
+    return this._httpClient.get(`${this._baseUrl}/${AuthEndPoint.LOGOUT}`);
+  }
+  getUserInfo():Observable<any>{
+    return this._httpClient.get(`${this._baseUrl}/${AuthEndPoint.USERINFO}`); 
   }
 }

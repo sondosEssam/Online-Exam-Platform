@@ -4,9 +4,10 @@ import { RouterOutlet } from '@angular/router';
 import { Modal } from './shared/UI/modal/modal';
 import { Loadingspinner } from './shared/UI/loadingspinner/loadingspinner';
 import { LoadinSpinnerService } from './shared/services/loadin-spinner-service';
+import { ConfirmDialogComponent } from "./shared/UI/confirm-dialog/confirm-dialog";
 @Component({
   selector: 'app-root',
-  imports: [ RouterOutlet, Modal, Loadingspinner],
+  imports: [RouterOutlet, Modal, Loadingspinner, ConfirmDialogComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

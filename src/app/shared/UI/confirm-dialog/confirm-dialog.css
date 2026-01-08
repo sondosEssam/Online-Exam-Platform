@@ -1,0 +1,24 @@
+::ng-deep {
+    .p-dialog .p-dialog-content {
+        overflow: visible !important;
+    }
+    
+    /* This makes your div sizing work */
+    .bg-primary.text-primary-contrast {
+        height: 700px !important;
+        width: 700px !important;
+    }
+    
+    /* This makes button styling work */
+    .p-button.bg-slate-200 {
+        background-color: #e2e8f0 !important;
+        border-color: #e2e8f0 !important;
+        color: #1e293b !important;
+    }
+    
+    .p-button.bg-red-500 {
+        background-color: #ef4444 !important;
+        border-color: #ef4444 !important;
+        color: white !important;
+    }
+}
