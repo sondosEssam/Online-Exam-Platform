@@ -1,1 +1,13 @@
-<p>diploma works!</p>
+<main class="h-[100vh] w-full flex flex-col px-3">
+    <div appHeadtag class="h-[60px] ">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h1>
+            Diplomas
+        </h1> 
+    </div>
+    <div class="flex-grow grid grid-cols-1  md:grid-cols-3  pt-5  gap-2 ">
+        @for (item of subjects; track $index) {
+            <app-subject-card class="col-span-1" [subject]="item.name" [_id]="item._id" [backgroundUrl]="item.icon" ></app-subject-card>
+        }
+    </div>
+</main>
