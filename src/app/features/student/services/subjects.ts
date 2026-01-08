@@ -12,4 +12,7 @@ export class Subjects {
   getSubjects() {
     return this._httpClient.get(`${this.baseUrl}/subjects`).pipe(map((res:any)=>res.subjects));
   }
+  getSububjectById(id:string) {
+    return this._httpClient.get(`${this.baseUrl}/subjects/${id}`).pipe(map((res:any)=>res.subject));
+  }
 }

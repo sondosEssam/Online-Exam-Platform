@@ -10,9 +10,8 @@ export const studentRoutes: Routes=[
                     { path: '', redirectTo: 'profile', pathMatch: 'full' },
                     {path:'profile', loadComponent:()=>import('./components/account/profile/profile').then(m=>m.Profile), data:{Breadcrumb:'Profile'}},
                     {path:'changePassword', loadComponent:()=>import('./components/account/chnage-password/chnage-password').then(m=>m.ChnagePassword), data:{Breadcrumb:'Change Password'}}
-            ],
-            canActivateChild:[authGuard]
-        },
+            ],canActivateChild:[authGuard]},
+            {path:'exams', loadComponent:()=>import('./pages/exams/exams').then(m=>m.Exams), data:{Breadcrumb:'Exams'}}
         ]
     }
 ]

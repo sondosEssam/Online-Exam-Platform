@@ -7,7 +7,7 @@
     </div>
     <div class="flex-grow grid grid-cols-1  md:grid-cols-3  pt-5  gap-2 ">
         @for (item of subjects; track $index) {
-            <app-subject-card class="col-span-1" [subject]="item.name" [backgroundUrl]="item.icon" ></app-subject-card>
+            <app-subject-card class="col-span-1" [subject]="item.name" [_id]="item._id" [backgroundUrl]="item.icon" ></app-subject-card>
         }
     </div>
 </main>
